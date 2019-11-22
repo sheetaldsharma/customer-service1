@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    Integer id;
+    private Integer id;
 
     @Column(name = "userpassword")
     @NonNull
@@ -23,11 +23,11 @@ public class User {
 
     @Column(name = "active")
     @NonNull
-    Boolean active;
+    private Boolean active;
 
     @Column(name = "roleid")
     @NonNull
-    Integer roleId;
+    private Integer roleId;
 
     @Column(name = "firstname")
     @NonNull
@@ -43,7 +43,7 @@ public class User {
 
     @Column(name = "birthdate")
     @NonNull
-    Date birthdate;
+    private Date birthdate;
 
     @Column(name = "address1")
     @NonNull
@@ -67,7 +67,7 @@ public class User {
 
     @Column(name = "postalcode")
     @NonNull
-    Integer postalCode;
+    private Integer postalCode;
 
     @Column(name = "email")
     @NonNull
@@ -75,13 +75,13 @@ public class User {
 
     @Column(name = "phone1")
     @NonNull
-    Integer phone1;
+    private Integer phone1;
 
     @Column(name = "phone2")
     @NonNull
-    Integer phone2;
+    private Integer phone2;
 
     @Column(name = "registrationdate")
     @NonNull
-    Date registrationDate;
+    private Date registrationDate;
 }
