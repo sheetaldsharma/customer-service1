@@ -1,6 +1,6 @@
 package com.eshopper.customerservice1.service;
 
-import com.eshopper.customerservice1.model.Customer;
+import com.eshopper.customerservice1.model.User;
 import com.eshopper.customerservice1.repository.CustomerRepository;
 import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.factory.annotation.*;
@@ -14,15 +14,21 @@ public class CustomerService{
     @Autowired
     CustomerRepository customerRepository;
 
-    public List<Customer> getAllCustomers()
+    public List<User> getAllUsers()
     {
-        return (List<Customer>)customerRepository.findAll();
+        return (List<User>)customerRepository.findAll();
     }
 
-    public Optional<Customer> getCustomerDetails(Integer customerId)
+    public Optional<User> getUserDetails(Integer customerId)
     {
         System.out.println("in service ="+customerId);
         return customerRepository.findById(customerId);
+    }
+
+    public User addUser(User user)
+    {
+        System.out.println("in addUser ");
+        return customerRepository.save(user);
     }
 
 }

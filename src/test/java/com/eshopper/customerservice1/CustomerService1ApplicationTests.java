@@ -6,8 +6,34 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class CustomerService1ApplicationTests {
 
-//	@Test
-	void contextLoads() {
+	@Test
+	void shouldCreateNewCustomer()
+	{
+
 	}
 
+	@Test
+	void shouldDeleteExistingCustomer()
+	{
+
+	}
+
+	@Test
+	void shouldGiveAllCustomerDetails()
+	{
+
+	}
+
+	@Test
+	void shouldGiveDetailsForACustomer()
+	{
+
+	}
+
+	@Test
+	void shouldFetchSingleCustomerDetails()
+	{
+
+	}
 }
+
