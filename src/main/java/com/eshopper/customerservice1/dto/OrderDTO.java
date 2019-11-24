@@ -18,13 +18,17 @@ public class OrderDTO {
 
     Integer orderId;
     Integer customerId;
-    Integer orderNumber;
+    Integer orderStatusId;
+    String shippingAddress;
+    String billingAddress;
+    Date invoiceDate;
+    Date deliveryDate;
     Integer paymentId ;
-    Date orderDate;
-    Date shipDate;
-    Date requiredDate;
-    Integer shippmentCompanyId;
-    String status ;
     String paymentStatus;
     Date paymentDate ;
+    Integer shippmentCompanyId;
+    Float total;
+    Float discount;
+    Float tax;
+
 }

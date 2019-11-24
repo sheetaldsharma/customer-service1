@@ -70,7 +70,7 @@ public class CustomerController {
 
     @GetMapping("/{customerId}/{orderId}/orderDetails")
     public OrderDTO getCustomerOrderDetails(@PathVariable("customerId") Integer customerId, @PathVariable("orderId") Integer orderId) {
-        String orderAPI = "http://ORDER-SERVICE1/order/"+customerId+"/"+orderId+"/orderDetails";
+        String orderAPI = "http://ORDER-SERVICE1/order/"+customerId+"/"+orderId+"/details";
         OrderDTO details = new OrderDTO();
         try {
             ResponseEntity<OrderDTO> orderServiceResponse = restTemplate.exchange(
