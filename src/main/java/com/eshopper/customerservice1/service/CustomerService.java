@@ -16,7 +16,7 @@ public class CustomerService{
 
     public List<User> getAllUsers()
     {
-        return (List<User>)customerRepository.findAll();
+        return customerRepository.findAll();
     }
 
     public Optional<User> getUserDetails(Integer customerId)
