@@ -28,7 +28,7 @@ public class CustomerService{
 
     public User addUser(User user)
     {
-        System.out.println("in addUser ");
+        System.out.println("---------------------------------in addUser ");
         return customerRepository.save(user);
     }
 

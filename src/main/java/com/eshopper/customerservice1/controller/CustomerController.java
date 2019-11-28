@@ -4,6 +4,7 @@ import com.eshopper.customerservice1.dto.OrderDTO;
 import com.eshopper.customerservice1.dto.UserDTO;
 import com.eshopper.customerservice1.model.User;
 import com.eshopper.customerservice1.service.CustomerService;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class CustomerController {
     @PostMapping("/register")
     public User registerCustomer(@RequestBody User user)
     {
+        System.out.println("---------------------------------register ");
         logger.trace("In registerCustomer");
         return customerService.addUser(user);
     }
@@ -52,6 +54,7 @@ public class CustomerController {
     @GetMapping("/{customerId}/personalDetails")
     public Optional<User> getCustomerDetails(@PathVariable("customerId") Integer customerId)
     {
+        System.out.println("---------------------------------get cust details ");
 //        logger.trace("in getCustomerDetails"+customerId);
 //        System.out.println("in getCustomerDetails"+customerId);
         return customerService.getUserDetails(customerId) ;
@@ -61,6 +64,7 @@ public class CustomerController {
     @GetMapping(value = "/all", produces = "application/json")
     public List<User> getAllCustomer()
     {
+        System.out.println("---------------------------------get all ");
 //        this.kafkaTemplateString.send(TOPIC, "first kafka msg");
 //        UserDTO userDTO = new UserDTO();
 //        userDTO.setId(1);
