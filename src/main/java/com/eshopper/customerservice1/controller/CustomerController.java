@@ -31,8 +31,8 @@ public class CustomerController {
 
     Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
-//    @Autowired
-//    private KafkaTemplate<String, UserDTO> kafkaTemplate;
+    @Autowired
+    private KafkaTemplate<String, UserDTO> kafkaTemplate;
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplateString;
@@ -52,8 +52,8 @@ public class CustomerController {
     @GetMapping("/{customerId}/personalDetails")
     public Optional<User> getCustomerDetails(@PathVariable("customerId") Integer customerId)
     {
-        logger.trace("in getCustomerDetails"+customerId);
-        System.out.println("in getCustomerDetails"+customerId);
+//        logger.trace("in getCustomerDetails"+customerId);
+//        System.out.println("in getCustomerDetails"+customerId);
         return customerService.getUserDetails(customerId) ;
     }
 
@@ -61,26 +61,26 @@ public class CustomerController {
     @GetMapping(value = "/all", produces = "application/json")
     public List<User> getAllCustomer()
     {
-        this.kafkaTemplateString.send(TOPIC, "first kafka msg");
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(1);
-        userDTO.setFirstName("AA");
-        //this.kafkaTemplate.send(TOPIC, new UserDTO(1, "AA"));
+//        this.kafkaTemplateString.send(TOPIC, "first kafka msg");
+//        UserDTO userDTO = new UserDTO();
+//        userDTO.setId(1);
+//        userDTO.setFirstName("AA");
+//        this.kafkaTemplate.send(TOPIC, new UserDTO(1, "AA"));
 
         return (List<User>) customerService.getAllUsers() ;
     }
 
-    /* Get order details for a Customer */
-    @GetMapping("/{customerId}/orderDetails")
-    public List<OrderDTO> getCustomerAllOrdersDetails(@PathVariable("customerId") Integer customerId)
-    {
-
-//        kafkaTemplate.send(TOPIC, new UserDTO(1, "AA"));
-//        kafkaTemplate.send(TOPIC,"hello");
-        System.out.println("after kafka --------------------------------");
-//        //* send a msg to kafka /{customerId}/orderDetails
-////        this.kafkaTemplate.send(TOPIC, customerId);
-//        //String orderAPI = "http://localhost:8082/order/"+customerId+"/orderDetails";
+//    /* Get order details for a Customer */
+//    @GetMapping("/{customerId}/order/details")
+//    public List<OrderDTO> getCustomerAllOrdersDetails(@PathVariable("customerId") Integer customerId)
+//    {
+//
+////        kafkaTemplate.send(TOPIC, new UserDTO(1, "AA"));
+////        kafkaTemplate.send(TOPIC,"hello");
+////        System.out.println("after kafka --------------------------------");
+////        //* send a msg to kafka /{customerId}/orderDetails
+//////        this.kafkaTemplate.send(TOPIC, customerId);
+////        //String orderAPI = "http://localhost:8082/order/"+customerId+"/orderDetails";
 //        String orderAPI = "http://ORDER-SERVICE1/order/"+customerId+"/orderDetails";
 //        List<OrderDTO> details = new ArrayList<>();
 //        try {
@@ -95,14 +95,15 @@ public class CustomerController {
 //        } catch (RestClientException e) {
 //            e.printStackTrace();
 //        }
-        List<OrderDTO> details = new ArrayList<>();
-        return details ;
-    }
-
-
+//        return details ;
+//    }
+//
+//
     /* Get particular detailesc(All included products) of a Order for a Customer */
-    @GetMapping("/{customerId}/{orderId}/orderDetails")
+    @GetMapping("/{customerId}/order/{orderId}/details")
     public OrderDTO getCustomerOrderDetails(@PathVariable("customerId") Integer customerId, @PathVariable("orderId") Integer orderId) {
+
+        //this.kafkaTemplate.send(TOPIC, new UserDTO(1, 1));
         String orderAPI = "http://ORDER-SERVICE1/order/"+customerId+"/"+orderId+"/details";
         OrderDTO details = new OrderDTO();
         try {

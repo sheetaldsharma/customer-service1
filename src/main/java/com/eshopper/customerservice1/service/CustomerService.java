@@ -1,5 +1,6 @@
 package com.eshopper.customerservice1.service;
 
+import com.eshopper.customerservice1.dto.ProductDTO;
 import com.eshopper.customerservice1.model.User;
 import com.eshopper.customerservice1.repository.CustomerRepository;
 import org.springframework.aop.scope.ScopedProxyUtils;
