@@ -14,10 +14,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
 
     @Column(name = "password")
