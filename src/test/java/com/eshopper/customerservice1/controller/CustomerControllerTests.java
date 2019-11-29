@@ -40,7 +40,7 @@ public class CustomerControllerTests {
     @MockBean
     CustomerService customerService;
 
-//    @Test
+    @Test
     public void shouldGetAllCustomer() throws Exception
     {
 
