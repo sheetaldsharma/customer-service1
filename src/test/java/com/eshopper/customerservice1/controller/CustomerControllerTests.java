@@ -4,6 +4,7 @@ package com.eshopper.customerservice1.controller;
 import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import com.eshopper.customerservice1.model.User;
 import com.eshopper.customerservice1.service.CustomerService;
@@ -14,14 +15,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.net.UnknownServiceException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,10 +44,9 @@ public class CustomerControllerTests {
     @MockBean
     CustomerService customerService;
 
-    @Test
-    public void shouldGetAllCustomer() throws Exception
-    {
 
+    public List<User> getUserTestData()
+    {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         LocalDate localDate = LocalDate.now();
 
@@ -92,6 +95,15 @@ public class CustomerControllerTests {
         List<User> userList = new ArrayList<>();
         userList.add(user);
         userList.add(user1);
+        return userList;
+
+    }
+
+    @Test
+    public void shouldGetAllCustomer() throws Exception
+    {
+
+        List<User> userList = getUserTestData();
 
         given(customerService.getAllUsers()).willReturn(userList);
 
@@ -101,5 +113,75 @@ public class CustomerControllerTests {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].firstName").value("AA"))
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void shouldGetCustomerDetails() throws Exception {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+
+        User user = new User();
+        user.setId(1);
+        user.setActive(true);
+        user.setAddress1("AA");
+        user.setAddress2("BB");
+        user.setBirthdate(new Date());
+        user.setCity("AA");
+        user.setCountry("AA");
+        user.setEmail("AA@gmail.com");
+        user.setFirstName("AA");
+        user.setLastName("AA");
+        user.setMiddleName("AA");
+        user.setPassword("AA");
+        user.setPhone1(12);
+        user.setPhone2(23);
+        user.setPostalCode(1234);
+        user.setRegistrationDate(new Date());
+        user.setRoleId(1);
+        user.setState("AA");
+        user.setRoleId(1);
+
+        Optional<User> tempUser = Optional.of(user);
+        given(customerService.getUserDetails(1)).willReturn(tempUser);
+        mockMvc.perform(get("/customer/{customerId}/personalDetails", user.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(1))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void shouldRegisterCustomer() throws Exception
+    {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+
+        User user = new User();
+        user.setId(3);
+        user.setActive(true);
+        user.setAddress1("AA");
+        user.setAddress2("BB");
+        user.setBirthdate(new Date());
+        user.setCity("AA");
+        user.setCountry("AA");
+        user.setEmail("AA@gmail.com");
+        user.setFirstName("AA");
+        user.setLastName("AA");
+        user.setMiddleName("AA");
+        user.setPassword("AA");
+        user.setPhone1(12);
+        user.setPhone2(23);
+        user.setPostalCode(1234);
+        user.setRegistrationDate(new Date());
+        user.setRoleId(1);
+        user.setState("AA");
+        user.setRoleId(1);
+
+        when(customerService.addUser(user)).thenReturn(user);
+        MvcResult result = mockMvc.perform(post("/customer/register")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+        
+
     }
 }
