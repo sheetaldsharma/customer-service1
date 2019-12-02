@@ -37,9 +37,9 @@ public class CustomerController {
 
     /* Get CUtomer personal details */
     @GetMapping("/{customerId}/personalDetails")
-    public Optional<User> getCustomerDetails(@PathVariable("customerId") Integer customerId)
+    public ResponseEntity<Optional<User>> getCustomerDetails(@PathVariable("customerId") Integer customerId)
     {
-        return customerService.getUserDetails(customerId) ;
+        return ResponseEntity.ok().body(customerService.getUserDetails(customerId)) ;
     }
 
     /* Get details of all registered Customer */

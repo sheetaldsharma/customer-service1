@@ -85,4 +85,28 @@ public class User {
     @Column(name = "registrationdate")
     @NonNull
     private Date registrationDate;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", roleId=" + roleId +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthdate=" + birthdate +
+                ", address1='" + address1 + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", country='" + country + '\'' +
+                ", postalCode=" + postalCode +
+                ", email='" + email + '\'' +
+                ", phone1=" + phone1 +
+                ", phone2=" + phone2 +
+                ", registrationDate=" + registrationDate +
+                '}';
+    }
 }
