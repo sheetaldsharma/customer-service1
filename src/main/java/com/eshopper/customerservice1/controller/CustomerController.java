@@ -2,6 +2,7 @@ package com.eshopper.customerservice1.controller;
 
 import com.eshopper.customerservice1.dto.OrderDTO;
 import com.eshopper.customerservice1.dto.UserDTO;
+import com.eshopper.customerservice1.exception.CustomerServiceException;
 import com.eshopper.customerservice1.model.User;
 import com.eshopper.customerservice1.service.CustomerService;
 import org.hibernate.Session;
@@ -23,7 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
-public class CustomerController {
+public class CustomerController{
     @Autowired
     CustomerService customerService;
 
