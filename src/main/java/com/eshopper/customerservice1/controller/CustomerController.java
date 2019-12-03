@@ -27,18 +27,21 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
     /* Add new customer */
     @PostMapping("/register")
     public User registerCustomer(@RequestBody User user)
     {
-        System.out.println("---------------------------------register ");
+        logger.debug("CustomerController - Create new user");
         return customerService.addUser(user);
     }
 
-    /* Get CUtomer personal details */
+    /* Get Customer personal details */
     @GetMapping("/{customerId}/personalDetails")
     public ResponseEntity<Optional<User>> getCustomerDetails(@PathVariable("customerId") Integer customerId)
     {
+        logger.debug("Received request to get customer details for customer Id:"+customerId);
         return ResponseEntity.ok().body(customerService.getUserDetails(customerId)) ;
     }
 
@@ -46,6 +49,7 @@ public class CustomerController {
     @GetMapping(value = "/all", produces = "application/json")
     public List<User> getAllCustomer()
     {
+        logger.debug("CustomerController - In getAllUsers");
         return (List<User>) customerService.getAllUsers() ;
     }
 

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,10 +38,10 @@ import static org.mockito.Mockito.doReturn;
 @SpringBootTest
 public class CustomerServiceTests {
 
-    @MockBean
+    @Mock
     CustomerRepository customerRepository;
 
-    @Autowired
+    @InjectMocks
     CustomerService customerService;
 
 
