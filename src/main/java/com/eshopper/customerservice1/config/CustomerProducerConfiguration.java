@@ -27,7 +27,6 @@ public class CustomerProducerConfiguration {
         return new DefaultKafkaProducerFactory<>(config);
     }
 
-
     @Bean
     public KafkaTemplate<String, UserDTO> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
@@ -48,7 +47,6 @@ public class CustomerProducerConfiguration {
     public KafkaTemplate<String, String> kafkaTemplateString() {
         return new KafkaTemplate<>(producerFactoryString());
     }
-
 
 }
 

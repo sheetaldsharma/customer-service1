@@ -1,12 +1,10 @@
 package com.eshopper.customerservice1.controller;
 
-
 import com.eshopper.customerservice1.model.User;
 import com.eshopper.customerservice1.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -29,7 +27,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 //@RunWith(SpringRunner.class)
 @WebMvcTest(CustomerController.class)
@@ -73,11 +70,11 @@ public class CustomerControllerTests {
         user1.setFirstName("AA");
         user1.setPostalCode(1234);
         user1.setRegistrationDate(new Date());
-        user1.setRoleId(1);
+        user1.setRoleId(6);
         user1.setState("AA");
         user1.setRoleId(1);
-        return user1;
 
+        return user1;
     }
 
     public User getUserTestData2()
@@ -107,7 +104,6 @@ public class CustomerControllerTests {
         user2.setRoleId(1);
 
         return user2;
-
     }
 
     @Test
@@ -163,9 +159,7 @@ public class CustomerControllerTests {
     public void shouldRegisterCustomer() throws Exception
     {
         User user = getUserTestData1();
-
         when(customerService.addUser(user)).thenReturn(user);
-
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/customer/register")
                         .contentType(MediaType.APPLICATION_JSON)

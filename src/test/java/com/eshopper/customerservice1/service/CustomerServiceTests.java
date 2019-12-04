@@ -1,9 +1,12 @@
 package com.eshopper.customerservice1.service;
 
+import com.eshopper.customerservice1.exception.CustomerServiceException;
 import com.eshopper.customerservice1.model.User;
 import com.eshopper.customerservice1.repository.CustomerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
+import org.junit.Rule;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import org.junit.runner.RunWith;
@@ -24,8 +27,7 @@ import java.util.*;
 
 import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -33,6 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -106,8 +110,7 @@ public class CustomerServiceTests {
     }
 
     @Test
-    public void shouldGetAllCustomer()
-    {
+    public void shouldGetAllCustomer() throws CustomerServiceException {
         List<User> userList = new ArrayList<>();
         userList.add(getUserTestData1());
         userList.add(getUserTestData2());
@@ -120,7 +123,7 @@ public class CustomerServiceTests {
 
 
     @Test
-    public void shouldGetCustomerDetails(){
+    public void shouldGetCustomerDetails() throws CustomerServiceException {
         User expectedUser = getUserTestData1();
         when(customerRepository.findById(expectedUser.getId())).thenReturn(Optional.of(expectedUser));
 
@@ -130,12 +133,52 @@ public class CustomerServiceTests {
     }
 
     @Test
-    public void shouldRegisterCustomer()
-    {
+    public void shouldRegisterCustomer() throws CustomerServiceException {
         User user = getUserTestData1();
         when(customerRepository.save(any(User.class))).thenReturn(user);
         User actualUser = customerService.addUser(user);
         assertEquals(actualUser, user);
     }
 
+    @Test
+    public void shouldThrowExceptionForGetCustomerDetails() throws CustomerServiceException {
+
+//        Assertions.assertThrows(CustomerServiceException.class, ()->{
+//            customerService.getUserDetails(10);
+//        });
+
+        Exception exception = assertThrows(
+                CustomerServiceException.class,
+                () -> customerService.getUserDetails(10));
+
+        assertTrue(exception.getMessage().contentEquals("Customer Not found"));
+
+    }
+
+//    @Test
+//    public void shouldThrowExceptionForRegisterCustomer()
+//    {
+//        User user = null;
+//        Exception exception = assertThrows(
+//                CustomerServiceException.class,
+//                () -> customerService.addUser(user));
+//
+//        assertTrue(exception.getMessage().contentEquals("Unable to add new Customer"));
+//    }
+
+
+    @Test
+    public void shouldThrowExceptionForGetAllCustomer() throws CustomerServiceException {
+
+//        Assertions.assertThrows(CustomerServiceException.class, ()->{
+//            customerService.getUserDetails(10);
+//        });
+
+        Exception exception = assertThrows(
+                CustomerServiceException.class,
+                () -> customerService.getAllUsers());
+
+        assertTrue(exception.getMessage().contentEquals("No customer data available"));
+
+    }
 }

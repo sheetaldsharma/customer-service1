@@ -1,16 +1,11 @@
 package com.eshopper.customerservice1.service;
 
-import com.eshopper.customerservice1.dto.ProductDTO;
+import com.eshopper.customerservice1.exception.CustomerServiceException;
 import com.eshopper.customerservice1.model.User;
 import com.eshopper.customerservice1.repository.CustomerRepository;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.aop.scope.ScopedProxyUtils;
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,19 +14,33 @@ public class CustomerService{
     @Autowired
     CustomerRepository customerRepository;
 
-    public List<User> getAllUsers()
-    {
-        return customerRepository.findAll();
+    public List<User> getAllUsers() throws CustomerServiceException {
+        List<User> userList = null;
+        userList = customerRepository.findAll();
+        if(userList.size() == 0)
+        {
+            throw new CustomerServiceException("No customer data available");
+        }
+        return userList;
     }
 
-    public Optional<User> getUserDetails(Integer customerId)
-    {
-        return customerRepository.findById(customerId);
+    public Optional<User> getUserDetails(Integer customerId) throws CustomerServiceException {
+        Optional<User> user1 = customerRepository.findById(customerId);
+        if(user1.isEmpty())
+        {
+            throw new CustomerServiceException("Customer Not found");
+        }
+        return user1;
     }
 
-    public User addUser(User user)
-    {
-        return customerRepository.save(user);
+    public User addUser(User user) throws CustomerServiceException {
+        User user1 = null;
+        user1 = customerRepository.save(user);
+        if(Optional.of(user1).isEmpty())
+        {
+            throw new CustomerServiceException("Customer Not found");
+        }
+        return user1;
     }
 
 }
