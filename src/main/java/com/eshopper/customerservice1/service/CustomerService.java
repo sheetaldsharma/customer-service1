@@ -19,17 +19,19 @@ public class CustomerService{
         userList = customerRepository.findAll();
         if(userList.size() == 0)
         {
-            throw new CustomerServiceException("No customer data available");
+            throw new CustomerServiceException("No customer data available", "CustomerService", "getAllUsers");
         }
         return userList;
     }
 
     public Optional<User> getUserDetails(Integer customerId) throws CustomerServiceException {
         Optional<User> user1 = customerRepository.findById(customerId);
+        System.out.println("In service ===> "+user1.toString());
         if(user1.isEmpty())
         {
-            throw new CustomerServiceException("Customer Not found");
+            throw new CustomerServiceException("Customer Not found controller", "CustomerService", "getUserDetails");
         }
+        System.out.println("In service1 ===> "+user1.toString());
         return user1;
     }
 
@@ -38,7 +40,7 @@ public class CustomerService{
         user1 = customerRepository.save(user);
         if(Optional.of(user1).isEmpty())
         {
-            throw new CustomerServiceException("Customer Not found");
+            throw new CustomerServiceException("Customer Not found", "CustomerService", "addUser");
         }
         return user1;
     }

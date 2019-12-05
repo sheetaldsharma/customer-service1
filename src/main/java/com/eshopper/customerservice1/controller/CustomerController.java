@@ -6,6 +6,7 @@ import com.eshopper.customerservice1.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,16 +27,24 @@ public class CustomerController{
         logger.debug("Register new Customer");
         if(user1 == null)
         {
-            throw new CustomerServiceException("Unable to add customer");
+            throw new CustomerServiceException("Unable to add customer", "CustomerController", "registerCustomer");
         }
         return user1;
     }
 
     /* Get Customer personal details */
     @GetMapping(value = "/{customerId}/personalDetails", produces = "application/json")
-    public Optional<User> getCustomerDetails(@PathVariable("customerId") Integer customerId) throws CustomerServiceException {
+    //@ExceptionHandler(CustomerServiceException.class)
+    public @ResponseBody ResponseEntity<Optional<User>> getCustomerDetails(@PathVariable("customerId") Integer customerId) throws CustomerServiceException {
+        Optional<User> user1 = customerService.getUserDetails(customerId) ;
         logger.debug("Processing request to get customer details for customer Id:"+customerId);
-        return customerService.getUserDetails(customerId) ;
+        System.out.println("In customer ===> "+user1.toString());
+        if(user1.isEmpty())
+        {
+            throw new CustomerServiceException("Customer Not found controller", "CustomerController", "getCustomerDetails");
+        }
+        System.out.println("In customer1 ===> "+user1.toString());
+        return ResponseEntity.ok(user1);
     }
 
     /* Get details of all registered Customer */

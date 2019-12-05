@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class CustomerControllerException {
 
     @ExceptionHandler(CustomerServiceException.class)
-    public ResponseEntity<ErrorResponse> handleCustomerServiceException(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleCustomerServiceException(CustomerServiceException ex) {
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setErrorCode(HttpStatus.PRECONDITION_FAILED.value());
+        errorResponse.setErrorCode(HttpStatus.BAD_REQUEST.value());
         errorResponse.setErrorMessage(ex.getMessage());
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.OK);
+        errorResponse.setModuleName(ex.getModuleName());
+        errorResponse.setFunctionName(ex.getFunctionName());
+        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
@@ -21,6 +23,6 @@ public class CustomerControllerException {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         errorResponse.setErrorMessage("There is some internal error. Please check.");
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.OK);
+        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

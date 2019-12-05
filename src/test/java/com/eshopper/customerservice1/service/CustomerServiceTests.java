@@ -170,10 +170,6 @@ public class CustomerServiceTests {
     @Test
     public void shouldThrowExceptionForGetAllCustomer() throws CustomerServiceException {
 
-//        Assertions.assertThrows(CustomerServiceException.class, ()->{
-//            customerService.getUserDetails(10);
-//        });
-
         Exception exception = assertThrows(
                 CustomerServiceException.class,
                 () -> customerService.getAllUsers());
