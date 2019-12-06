@@ -22,36 +22,36 @@ public class CustomerController{
 
     /* Add new customer */
     @PostMapping(value = "/register", produces = "application/json")
-    public User registerCustomer(@RequestBody User user) throws CustomerServiceException {
-        User user1 = customerService.addUser(user);
-        logger.debug("Register new Customer");
-        if(user1 == null)
-        {
-            throw new CustomerServiceException("Unable to add customer", "CustomerController", "registerCustomer");
-        }
-        return user1;
+    public ResponseEntity<User> registerCustomer(@RequestBody User user) throws CustomerServiceException {
+        //User user1 = ;
+//        logger.debug("Register new Customer");
+//        if(user1 == null)
+//        {
+//            throw new CustomerServiceException("Unable to add customer", "CustomerController", "registerCustomer");
+//        }
+        return ResponseEntity.ok(customerService.addUser(user));
     }
 
     /* Get Customer personal details */
     @GetMapping(value = "/{customerId}/personalDetails", produces = "application/json")
     //@ExceptionHandler(CustomerServiceException.class)
-    public @ResponseBody ResponseEntity<Optional<User>> getCustomerDetails(@PathVariable("customerId") Integer customerId) throws CustomerServiceException {
-        Optional<User> user1 = customerService.getUserDetails(customerId) ;
-        logger.debug("Processing request to get customer details for customer Id:"+customerId);
-        System.out.println("In customer ===> "+user1.toString());
-        if(user1.isEmpty())
-        {
-            throw new CustomerServiceException("Customer Not found controller", "CustomerController", "getCustomerDetails");
-        }
-        System.out.println("In customer1 ===> "+user1.toString());
-        return ResponseEntity.ok(user1);
+    public ResponseEntity<Optional<User>> getCustomerDetails(@PathVariable("customerId") Integer customerId) throws CustomerServiceException {
+        //Optional<User> user1 = customerService.getUserDetails(customerId) ;
+//        logger.debug("Processing request to get customer details for customer Id:"+customerId);
+//        System.out.println("In customer ===> "+user1.toString());
+//        if(user1.isEmpty())
+//        {
+//            throw new CustomerServiceException("Customer Not found controller", "CustomerController", "getCustomerDetails");
+//        }
+//        System.out.println("In customer1 ===> "+user1.toString());
+        return ResponseEntity.ok(customerService.getUserDetails(customerId));
     }
 
     /* Get details of all registered Customer */
     @GetMapping(value = "/all", produces = "application/json")
-    public List<User> getAllCustomer() throws CustomerServiceException {
+    public ResponseEntity<List<User>> getAllCustomer() throws CustomerServiceException {
         logger.debug("Get all customer details");
-        return (List<User>) customerService.getAllUsers() ;
+        return ResponseEntity.ok(customerService.getAllUsers()) ;
     }
 
 }

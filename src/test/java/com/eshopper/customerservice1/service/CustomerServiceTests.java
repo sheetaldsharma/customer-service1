@@ -57,24 +57,24 @@ public class CustomerServiceTests {
 
         User user1 = new User();
         user1.setId(1);
+        user1.setPassword("AA");
         user1.setActive(true);
+        user1.setRoleId(1);
+        user1.setFirstName("AA");
+        user1.setMiddleName("AA");
+        user1.setLastName("AA");
+        user1.setBirthdate(new Date());
         user1.setAddress1("AA");
         user1.setAddress2("BB");
-        user1.setBirthdate(new Date());
-        user1.setCountry("AA");
-        user1.setEmail("AA@gmail.com");
-        user1.setLastName("AA");
-        user1.setMiddleName("AA");
-        user1.setPassword("AA");
-        user1.setPhone1(12);
         user1.setCity("AA");
-        user1.setPhone2(23);
-        user1.setFirstName("AA");
-        user1.setPostalCode(1234);
-        user1.setRegistrationDate(new Date());
-        user1.setRoleId(1);
         user1.setState("AA");
-        user1.setRoleId(1);
+        user1.setCountry("AA");
+        user1.setPostalCode(1234);
+        user1.setEmail("AA@gmail.com");
+        user1.setPhone1(12);
+        user1.setPhone2(23);
+        user1.setRegistrationDate(new Date());
+
         return user1;
 
     }
@@ -86,26 +86,54 @@ public class CustomerServiceTests {
 
         User user2 = new User();
         user2.setId(2);
-        user2.setActive(true);
-        user2.setAddress1("BB");
-        user2.setAddress2("BB");
-        user2.setBirthdate(new Date());
-        user2.setCity("BB");
-        user2.setCountry("BB");
-        user2.setEmail("BB@gmail.com");
-        user2.setFirstName("BB");
-        user2.setLastName("BB");
-        user2.setMiddleName("BB");
         user2.setPassword("AA");
+        user2.setActive(true);
+        user2.setRoleId(1);
+        user2.setFirstName("AA");
+        user2.setMiddleName("AA");
+        user2.setLastName("AA");
+        user2.setBirthdate(new Date());
+        user2.setAddress1("AA");
+        user2.setAddress2("BB");
+        user2.setCity("AA");
+        user2.setState("AA");
+        user2.setCountry("AA");
+        user2.setPostalCode(1234);
+        user2.setEmail("AA@gmail.com");
         user2.setPhone1(12);
         user2.setPhone2(23);
-        user2.setPostalCode(1234);
         user2.setRegistrationDate(new Date());
-        user2.setRoleId(1);
-        user2.setState("BB");
-        user2.setRoleId(1);
 
         return user2;
+
+    }
+
+    public User getUserTestData1ForException()
+    {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+
+        User user1 = new User();
+        user1.setId(1);
+        user1.setPassword("AA");
+        user1.setActive(true);
+        user1.setRoleId(1);
+        user1.setFirstName("AA");
+        user1.setMiddleName("AA");
+        user1.setLastName("AA");
+        user1.setBirthdate(new Date());
+        user1.setAddress1("AA");
+        user1.setAddress2("BB");
+        user1.setCity("AA");
+        user1.setState("AA");
+        user1.setCountry("AA");
+        user1.setPostalCode(1234);
+        user1.setEmail("AA@gmail.com");
+        user1.setPhone1(12);
+        user1.setPhone2(23);
+        user1.setRegistrationDate(new Date());
+
+        return user1;
 
     }
 
@@ -155,16 +183,16 @@ public class CustomerServiceTests {
 
     }
 
-//    @Test
-//    public void shouldThrowExceptionForRegisterCustomer()
-//    {
-//        User user = null;
-//        Exception exception = assertThrows(
-//                CustomerServiceException.class,
-//                () -> customerService.addUser(user));
-//
-//        assertTrue(exception.getMessage().contentEquals("Unable to add new Customer"));
-//    }
+    @Test
+    public void shouldThrowExceptionForRegisterCustomer()
+    {
+        User user = getUserTestData1ForException();
+        Exception exception = assertThrows(
+                CustomerServiceException.class,
+                () -> customerService.addUser(user));
+        System.out.println("exception.getMessage()"+exception.getMessage());
+        assertTrue(exception.getMessage().contentEquals("Unable to add new Customer"));
+    }
 
 
     @Test

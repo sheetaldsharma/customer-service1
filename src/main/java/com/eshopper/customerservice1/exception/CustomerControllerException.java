@@ -10,16 +10,16 @@ public class CustomerControllerException {
 
     @ExceptionHandler(CustomerServiceException.class)
     public ResponseEntity<ErrorResponse> handleCustomerServiceException(CustomerServiceException ex) {
+        System.out.println("Customer service");
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setErrorCode(HttpStatus.BAD_REQUEST.value());
         errorResponse.setErrorMessage(ex.getMessage());
-        errorResponse.setModuleName(ex.getModuleName());
-        errorResponse.setFunctionName(ex.getFunctionName());
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+        System.out.println("Exception service");
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         errorResponse.setErrorMessage("There is some internal error. Please check.");

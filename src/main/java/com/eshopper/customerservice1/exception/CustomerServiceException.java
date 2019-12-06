@@ -9,14 +9,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Setter
 public class CustomerServiceException extends Exception {
     private String errorMessage;
-    private String moduleName;
-    private String functionName;
 
-    public CustomerServiceException(String errorMessage, String moduleName, String functionName) {
+    public CustomerServiceException(String errorMessage) {
         super(errorMessage);
         this.errorMessage = errorMessage;
-        this.moduleName = moduleName;
-        this.functionName = functionName;
     }
 
     public CustomerServiceException() {
