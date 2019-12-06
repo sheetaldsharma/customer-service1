@@ -38,8 +38,10 @@ public class CustomerService{
 
     public User addUser(User user) throws CustomerServiceException {
         User user1 = null;
-        user1 = customerRepository.save(user);
-        if(user1 == null)
+        try {
+            user1 = customerRepository.save(user);
+        }
+        catch (Exception ex)
         {
             throw new CustomerServiceException("Unable to add new Customer");
         }

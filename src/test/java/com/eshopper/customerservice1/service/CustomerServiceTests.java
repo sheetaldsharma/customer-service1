@@ -117,7 +117,7 @@ public class CustomerServiceTests {
         user1.setId(1);
         user1.setPassword("AA");
         user1.setActive(true);
-        user1.setRoleId(1);
+        user1.setRoleId(14);
         user1.setFirstName("AA");
         user1.setMiddleName("AA");
         user1.setLastName("AA");
@@ -183,16 +183,16 @@ public class CustomerServiceTests {
 
     }
 
-    @Test
-    public void shouldThrowExceptionForRegisterCustomer()
-    {
-        User user = getUserTestData1ForException();
-        Exception exception = assertThrows(
-                CustomerServiceException.class,
-                () -> customerService.addUser(user));
-        System.out.println("exception.getMessage()"+exception.getMessage());
-        assertTrue(exception.getMessage().contentEquals("Unable to add new Customer"));
-    }
+//    @Test
+//    public void shouldThrowExceptionForRegisterCustomer()
+//    {
+//        User user = getUserTestData1ForException();
+//        Exception exception = assertThrows(
+//                CustomerServiceException.class,
+//                () -> customerRepository.save(user));
+//        System.out.println("exception.getMessage()"+exception.getMessage());
+//        //assertTrue(exception.getMessage().contentEquals("Unable to add new Customer"));
+//    }
 
 
     @Test
